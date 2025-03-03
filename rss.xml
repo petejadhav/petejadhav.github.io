@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Prithviraj 'Pete' Jadhav]]></title><description><![CDATA[Prithviraj 'Pete' Jadhav's Blog.]]></description><link>https://petejadhav.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 26 May 2021 18:30:44 GMT</lastBuildDate><item><title><![CDATA[Develop & Deploy Fastapi + React with Postgres using Docker-Compose]]></title><description><![CDATA[I finally sat down to create a fully production ready API with a frontend. On the deploy side, Docker seems to be an awesome tool I should…]]></description><link>https://petejadhav.github.io/fastapi-react-docker/</link><guid isPermaLink="false">https://petejadhav.github.io/fastapi-react-docker/</guid><pubDate>Wed, 26 May 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/8784cb962b0593b5efb51100b12ec2ed/4409e/christopher-gower-m_HRfLhgABo-unsplash.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 66.5%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAAD/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAWZHZZrDj//EABsQAQEAAQUAAAAAAAAAAAAAAAIDAAEEERIT/9oACAEBAAEFAhTrCdS1m219TOJCV+F//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGxAAAgIDAQAAAAAAAAAAAAAAAAECERASMWH/2gAIAQEABj8C9RSjWJQlwtDWiP/EABwQAAICAgMAAAAAAAAAAAAAAAERACExUUFhcf/aAAgBAQABPyETy0BjmHJ1LfseoomEthWzEBR3P//aAAwDAQACAAMAAAAQ+9//xAAVEQEBAAAAAAAAAAAAAAAAAAAQIf/aAAgBAwEBPxCn/8QAFREBAQAAAAAAAAAAAAAAAAAAECH/2gAIAQIBAT8Qh//EABoQAQEBAQEBAQAAAAAAAAAAAAERACExQfD/2gAIAQEAAT8QGW/Kh86uWhW1K3ABBA5iLmDRT957u+qGFAwSIp1d3//Z&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;unsplash.com&quot;
+        title=&quot;&quot;
+        src=&quot;/static/8784cb962b0593b5efb51100b12ec2ed/4b190/christopher-gower-m_HRfLhgABo-unsplash.jpg&quot;
+        srcset=&quot;/static/8784cb962b0593b5efb51100b12ec2ed/e07e9/christopher-gower-m_HRfLhgABo-unsplash.jpg 200w,
+/static/8784cb962b0593b5efb51100b12ec2ed/066f9/christopher-gower-m_HRfLhgABo-unsplash.jpg 400w,
+/static/8784cb962b0593b5efb51100b12ec2ed/4b190/christopher-gower-m_HRfLhgABo-unsplash.jpg 800w,
+/static/8784cb962b0593b5efb51100b12ec2ed/e5166/christopher-gower-m_HRfLhgABo-unsplash.jpg 1200w,
+/static/8784cb962b0593b5efb51100b12ec2ed/b17f8/christopher-gower-m_HRfLhgABo-unsplash.jpg 1600w,
+/static/8784cb962b0593b5efb51100b12ec2ed/4409e/christopher-gower-m_HRfLhgABo-unsplash.jpg 3882w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;I finally sat down to create a fully production ready API with a frontend. On the deploy side, &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; seems to be an awesome tool I should have learnt by now. With no dearth of time on my hands (no thanks to Covid), I completed the code over the weekend.&lt;/p&gt;
+&lt;h2&gt;The Tech Stack&lt;/h2&gt;
+&lt;p&gt;I decided to use something fancy this time. The API backend has been written in Python using &lt;a href=&quot;https://fastapi.tiangolo.com/&quot;&gt;fastapi&lt;/a&gt;. The frontend is a very simple &lt;a href=&quot;https://en.wikipedia.org/wiki/Single-page_application&quot;&gt;single page application&lt;/a&gt; written in &lt;a href=&quot;https://reactjs.org/&quot;&gt;React JS&lt;/a&gt;. The user data is stored on a &lt;a href=&quot;https://www.postgresql.org/&quot;&gt;postgres&lt;/a&gt; database. The deployment will be handled by &lt;a href=&quot;https://docs.docker.com/compose/&quot;&gt;Docker-Compose&lt;/a&gt;. The code is on Github &lt;a href=&quot;https://github.com/petejadhav/ml_fastapi_react&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;API Server Backend&lt;/h3&gt;
+&lt;p&gt;The API server will be created in Python using fastapi.
+The API should be able to handle the following functions -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Login &amp;#x26; User Registration &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://auth0.com/docs/tokens/json-web-tokens&quot;&gt;JSON-Web-Token&lt;/a&gt; based authentication. Code is &lt;a href=&quot;https://github.com/petejadhav/ml_fastapi_react/blob/main/backend/jwt_auth_handler.py&quot;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Writing &amp;#x26; modifying user data on the database. Code is &lt;a href=&quot;https://github.com/petejadhav/ml_fastapi_react/blob/main/backend/user_handler.py&quot;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;API &lt;a href=&quot;https://github.com/petejadhav/ml_fastapi_react/blob/main/backend/main.py&quot;&gt;endpoints&lt;/a&gt; for general use (like exposing a Machine Learning model)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;a href=&quot;https://github.com/petejadhav/ml_fastapi_react/blob/main/backend/main.py&quot;&gt;main&lt;/a&gt; file has the code that defines the endpoints. The user handler file will handle the database calls. The user password will be stored as a hash. This is handled by the &lt;a href=&quot;https://en.wikipedia.org/wiki/Bcrypt&quot;&gt;bcrypt&lt;/a&gt; algorithm.
+The &lt;strong&gt;/login&lt;/strong&gt; endpoint will expect a username &amp;#x26; password and return a JWT token.&lt;/p&gt;
+&lt;p&gt;The code will be deployed on a docker continer using the &lt;strong&gt;&lt;em&gt;&lt;a href=&quot;https://hub.docker.com/r/tiangolo/uvicorn-gunicorn-fastapi/dockerfile&quot;&gt;uvicorn-gunicorn-fastapi&lt;/a&gt;&lt;/em&gt;&lt;/strong&gt; image.&lt;/p&gt;
+&lt;h3&gt;React JS Frontend&lt;/h3&gt;
+&lt;p&gt;The single-page-application frontend will be developed in Javascript using React JS.
+The frontend will have the following components -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Routing using &lt;a href=&quot;https://reactrouter.com/web/guides/quick-start&quot;&gt;React Router&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Login component&lt;/li&gt;
+&lt;li&gt;Register component&lt;/li&gt;
+&lt;li&gt;Example API endpoint handler component&lt;/li&gt;
+&lt;li&gt;State management using &lt;a href=&quot;https://recoiljs.org/&quot;&gt;Recoil&lt;/a&gt;. (Recoil is kinda cool. Check it out.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The login, register &amp;#x26; endpoint handler component will call the API we built earlier. The login &amp;#x26; register component will POST request the API which will return the JSON Web token to make authenticated calls to the other endpoints.
+The app &lt;a href=&quot;https://github.com/petejadhav/ml_fastapi_react/blob/main/frontend/src/state.js&quot;&gt;state&lt;/a&gt; is just an authentication flag &amp;#x26; user data for now. The example handler will check the auth flag before calling our API.&lt;/p&gt;
+&lt;p&gt;The frontend code will also be deployed on a docker container. We’ll use the basic &lt;a href=&quot;https://www.nginx.com/&quot;&gt;Nginx&lt;/a&gt; image. The react code will sit behind an nginx server. The nginx server will also handle the API requests at &lt;strong&gt;/api&lt;/strong&gt; and redirect them to the API server. The nginx conf file is &lt;a href=&quot;https://github.com/petejadhav/ml_fastapi_react/blob/main/frontend/nginx.conf&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Postgres Database&lt;/h3&gt;
+&lt;p&gt;The user data will be stored on a Postgres database. For now, we will just store the user’s email and password. The easiest way to get postgres on your machine is to use a Docker image.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;dockerfile&quot;&gt;&lt;pre class=&quot;language-dockerfile&quot;&gt;&lt;code class=&quot;language-dockerfile&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; postgres 
+&lt;span class=&quot;token keyword&quot;&gt;ENV&lt;/span&gt; POSTGRES_PASSWORD postgres 
+&lt;span class=&quot;token keyword&quot;&gt;ENV&lt;/span&gt; POSTGRES_DB testdb 
+&lt;span class=&quot;token keyword&quot;&gt;COPY&lt;/span&gt; init.sql /docker&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;entrypoint&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;initdb.d/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will get the original postgres image from &lt;a href=&quot;https://hub.docker.com/&quot;&gt;docker-hub&lt;/a&gt;. Create 2 environment variables for database name and password. The last line will copy a SQL script that will be executed on startup. Our startup script will just create an empty User table with the required schema.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sql&quot;&gt;&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;users &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    id &lt;span class=&quot;token keyword&quot;&gt;SERIAL&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;PRIMARY&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;KEY&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    email &lt;span class=&quot;token keyword&quot;&gt;varchar&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    password &lt;span class=&quot;token keyword&quot;&gt;varchar&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Run the docker container with the following commands in the directory that contains dockerfile.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;docker build -t pgdb &lt;span class=&quot;token builtin class-name&quot;&gt;.&lt;/span&gt;
+docker run -d --name pgdb_container -p &lt;span class=&quot;token number&quot;&gt;5432&lt;/span&gt;:5432 pgdb&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Deploy using Docker Compose&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/compose/&quot;&gt;Docker-Compose&lt;/a&gt; is an awesome tool that can handle multiple container deployments on the same host. We are creating 3 different containers for the 3 services (api, web, db) which will run on the same host machine.
+All we need is to create the docker-compose.yaml file.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;3.7&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token key atrule&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; postgres_db
+        &lt;span class=&quot;token key atrule&quot;&gt;healthcheck&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;CMD&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;pg_isready&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;-q&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;-d&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;${POSTGRES_DB}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;-U&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;postgres&quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; 45s
+          &lt;span class=&quot;token key atrule&quot;&gt;interval&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; 10s
+          &lt;span class=&quot;token key atrule&quot;&gt;retries&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;
+    
+    &lt;span class=&quot;token key atrule&quot;&gt;web&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; frontend
+        &lt;span class=&quot;token key atrule&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token datetime number&quot;&gt;80:80&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;depends_on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; api
+
+    &lt;span class=&quot;token key atrule&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; backend
+        &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; PORT=80
+          &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; DB_HOST=db
+        &lt;span class=&quot;token key atrule&quot;&gt;depends_on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token key atrule&quot;&gt;condition&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; service_healthy&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We define the &lt;strong&gt;&lt;em&gt;healthcheck&lt;/em&gt;&lt;/strong&gt; because we need the postgres databse to be up &amp;#x26; running before the API server starts.&lt;/p&gt;
+&lt;p&gt;Running this will start all 3 services -&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;docker-compose up --build&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That’s all folks. You now have a production-ready API server with a simple frontend and a user database. Don’t forget to change the JWT secret in the backend &lt;a href=&quot;https://github.com/petejadhav/ml_fastapi_react/blob/main/backend/config.py&quot;&gt;config&lt;/a&gt; file.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Cardio HIIT Timer App in React-Native]]></title><description><![CDATA[High Intensity Interval Training has been catching on lately (or maybe I have finally caught up with it). It seems like an awesome way to…]]></description><link>https://petejadhav.github.io/workout-timer/</link><guid isPermaLink="false">https://petejadhav.github.io/workout-timer/</guid><pubDate>Wed, 22 Jul 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/50ce145c95de5d02140b4d365f7bb312/c08c5/chase-kinney-FMQBLyhD2HU-unsplash.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 640px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 56.49999999999999%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAUBBP/EABUBAQEAAAAAAAAAAAAAAAAAAAEA/9oADAMBAAIQAxAAAAHHKKqiE//EABgQAAMBAQAAAAAAAAAAAAAAAAABAhIQ/9oACAEBAAEFAtSS5TVS+M0z/8QAFREBAQAAAAAAAAAAAAAAAAAAARD/2gAIAQMBAT8BGf/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAMBAQAAAAAAAAAAAAAAAAARMSEQ/9oACAEBAAY/Am9LhV2n/8QAGxAAAgIDAQAAAAAAAAAAAAAAAREAQRAhMVH/2gAIAQEAAT8hQey3Ebaj9gNkciyQI//aAAwDAQACAAMAAAAQCC//xAAWEQEBAQAAAAAAAAAAAAAAAAAAASH/2gAIAQMBAT8QwSv/xAAVEQEBAAAAAAAAAAAAAAAAAAAQEf/aAAgBAgEBPxCH/8QAGhAAAwEBAQEAAAAAAAAAAAAAAREhADFBcf/aAAgBAQABPxAuSxM03PgXd3UC6Ih+e4H8oibhzACEc2BAx3f/2Q==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;unsplash.com&quot;
+        title=&quot;&quot;
+        src=&quot;/static/50ce145c95de5d02140b4d365f7bb312/c08c5/chase-kinney-FMQBLyhD2HU-unsplash.jpg&quot;
+        srcset=&quot;/static/50ce145c95de5d02140b4d365f7bb312/e07e9/chase-kinney-FMQBLyhD2HU-unsplash.jpg 200w,
+/static/50ce145c95de5d02140b4d365f7bb312/066f9/chase-kinney-FMQBLyhD2HU-unsplash.jpg 400w,
+/static/50ce145c95de5d02140b4d365f7bb312/c08c5/chase-kinney-FMQBLyhD2HU-unsplash.jpg 640w&quot;
+        sizes=&quot;(max-width: 640px) 100vw, 640px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.healthline.com/nutrition/benefits-of-hiit&quot;&gt;High Intensity Interval Training&lt;/a&gt; has been catching on lately (or maybe I have finally caught up with it). It seems like an awesome way to workout in the confines of my home. They are basically short bursts of intense exercise followed by a rest period. The workouts require a way to keep track of the time and the reps. Unfortunately there seems to be no app (web or otherwise) catering to this specific need. So I thought, what the hell, I’ll just build one on my own. &lt;/p&gt;
+&lt;h3&gt;The Tech&lt;/h3&gt;
+&lt;p&gt;Nothing fancy, just some javascript. I used &lt;a href=&quot;https://reactnative.dev/&quot;&gt;React-Native&lt;/a&gt; for the app. The app has been tested only on Android. Testing on Apple products is in the works.
+The main idea is to take the number of repetitions, repetition time and rest time as inputs. Then have a timer run down from rep-time to 0, rest-time to 0 and repeat for number of reps. Beep whenever the app state changes from rep. to rest. Simple enough. The timer can be handled using javascipt’s &lt;strong&gt;setInterval&lt;/strong&gt; function.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/756b15ecb9313776c648cdd0f581b80e/eea4a/marathon-2346948_1280.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 55.99999999999999%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMEAQX/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAABxnNrKeXjP//EABoQAAIDAQEAAAAAAAAAAAAAAAECAAMxBBL/2gAIAQEAAQUCrZmmt4BgnMxttO//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAbEAEAAQUBAAAAAAAAAAAAAAABAAMQERIhMf/aAAgBAQAGPwLxSOScGcmtR2Lf/8QAGhABAAIDAQAAAAAAAAAAAAAAAQAhETFhUf/aAAgBAQABPyGw6MEIqbMzfaekreQ8YfaIuGVU/9oADAMBAAIAAwAAABDTL//EABgRAAIDAAAAAAAAAAAAAAAAAAABESEx/9oACAEDAQE/EKWks//EABURAQEAAAAAAAAAAAAAAAAAABEA/9oACAECAQE/EFi//8QAHhABAAICAgMBAAAAAAAAAAAAAQARITFBcVGBocH/2gAIAQEAAT8QY4TZLprMOdMmFbv8gW79aHq3PcF1haUH5CsVHsU1fn3GiMBxP//Z&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;pixabay.com&quot;
+        title=&quot;&quot;
+        src=&quot;/static/756b15ecb9313776c648cdd0f581b80e/4b190/marathon-2346948_1280.jpg&quot;
+        srcset=&quot;/static/756b15ecb9313776c648cdd0f581b80e/e07e9/marathon-2346948_1280.jpg 200w,
+/static/756b15ecb9313776c648cdd0f581b80e/066f9/marathon-2346948_1280.jpg 400w,
+/static/756b15ecb9313776c648cdd0f581b80e/4b190/marathon-2346948_1280.jpg 800w,
+/static/756b15ecb9313776c648cdd0f581b80e/e5166/marathon-2346948_1280.jpg 1200w,
+/static/756b15ecb9313776c648cdd0f581b80e/eea4a/marathon-2346948_1280.jpg 1280w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;I ran into issues as soon as I started writing the logic. It turns out, React-Native does not handle the setInterval function well. Reading and updating state variables from inside a setInterval block is not a trivial matter. After hours of googling &amp;#x26; searching on &lt;a href=&quot;https://stackoverflow.com/questions/26348557/issue-accessing-state-inside-setinterval-in-react-js&quot;&gt;StackOverflow&lt;/a&gt;, I figured out a way to use react-native’s &lt;a href=&quot;https://reactjs.org/docs/hooks-effect.html&quot;&gt;hooks&lt;/a&gt; functionality, specifically &lt;strong&gt;useEffects&lt;/strong&gt; to get it to work. Another issue I ran into, was the setInterval delay timer. Since react-native runs only on one thread, it is &lt;a href=&quot;https://andrewduthie.com/2013/12/31/creating-a-self-correcting-alternative-to-javascripts-setinterval/&quot;&gt;not guaranteed&lt;/a&gt; that setInterval will actally run exactly after every &lt;em&gt;delay&lt;/em&gt; milliseconds. This is quite a fundamental issue and the only way to alleviate this is to have self-correcting logic inside the setInterval block using &lt;em&gt;performance.now&lt;/em&gt;. I borrowed the coed for the self-adjusting &lt;em&gt;setInterval&lt;/em&gt; function from &lt;a href=&quot;https://andrewduthie.com/2013/12/31/creating-a-self-correcting-alternative-to-javascripts-setinterval/&quot;&gt;andrewduthie.com&lt;/a&gt;. I used johnsonsu’s &lt;a href=&quot;https://github.com/johnsonsu/react-native-sound-player#readme&quot;&gt;react-native-sound-player&lt;/a&gt; for the beep functionality . A functionality, I added in later is the ability to keep the screen awake while the app is being used. For this, I used sayem314’s &lt;a href=&quot;https://www.npmjs.com/package/@sayem314/react-native-keep-awake&quot;&gt;react-native-keep-awake&lt;/a&gt; package.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token function&quot;&gt;useEffect&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; timer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;isPaused&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      timer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;setInterval&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token function&quot;&gt;setCurrTime&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;currTime&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; currTime &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;currTime &lt;span class=&quot;token operator&quot;&gt;&gt;=&lt;/span&gt; repTime&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; isResting&lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;token comment&quot;&gt;//TODO - beep&lt;/span&gt;
+          &lt;span class=&quot;token function&quot;&gt;setCurrTime&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+          &lt;span class=&quot;token function&quot;&gt;setResting&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;currTime &lt;span class=&quot;token operator&quot;&gt;&gt;=&lt;/span&gt; restTime&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; isResting&lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;token comment&quot;&gt;//TODO - beep&lt;/span&gt;
+          &lt;span class=&quot;token function&quot;&gt;setCurrTime&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+          &lt;span class=&quot;token function&quot;&gt;setResting&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+          &lt;span class=&quot;token function&quot;&gt;setCurrRep&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;currentRep&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; currentRep &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;isPaused&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token function&quot;&gt;clearInterval&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;timer&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;clearInterval&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;timer&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;isPaused&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;currTime&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;repTime&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;isResting&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;restTime&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;currentRep&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;sets&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The next part that bothered me was the UI and the color scheme. Aesthetic Design does not come to me easily. But I found an awesome resource for figuring out the color schemes - &lt;a href=&quot;https://coolors.co/&quot;&gt;Coolors&lt;/a&gt;. It generates random color palettes that work well together.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/d4ef3fdafd10b3ee4b36fab29838815f/02e66/app-screenshot.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 405px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 188.49999999999997%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAmABQDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAIEBQED/8QAFgEBAQEAAAAAAAAAAAAAAAAAAQAC/9oADAMBAAIQAxAAAAGHLsTFJoJ8I6CzVew1kdFgK//EAB0QAAEDBQEAAAAAAAAAAAAAAAEAAgMEEBEUMRL/2gAIAQEAAQUC1gtVqNLYXwm8AyzwpOitkA3pEat5X//EABYRAQEBAAAAAAAAAAAAAAAAABEQIP/aAAgBAwEBPwFhj//EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQIBAT8BX//EAB0QAAEEAgMAAAAAAAAAAAAAAAACEDEyAREScaH/2gAIAQEABj8CuXLNDx5hk9E5bXFJVJCT/8QAIRAAAgICAgEFAAAAAAAAAAAAAAERMSFBUXEQgZGhsfD/2gAIAQEAAT8hkSnTgk39hKqfoN4XS+jB2HSGlNLWlwQ4BibY1hXXh09CRRUbPwsfy/mP/9oADAMBAAIAAwAAABDk177/AP8A/8QAGBEBAQEBAQAAAAAAAAAAAAAAAQARITH/2gAIAQMBAT8Q32FSYeWFhf/EABgRAQEAAwAAAAAAAAAAAAAAAAARARAh/9oACAECAQE/EOquphH/xAAgEAEAAgIBBQEBAAAAAAAAAAABABEhQTFRYaHB0XHw/9oACAEBAAE/EBwwoaONly1C0XhL03KHq3js6JTAN4ymPM8X2xitmuSadWfxnuAEAMuADfbEAGKl4rhKXe6+T5KlJXb+sCCBCzgY6wvLq3j6gYdCsH1P/9k=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px transparent;&quot;
+        alt=&quot;app screenshot&quot;
+        title=&quot;&quot;
+        src=&quot;/static/d4ef3fdafd10b3ee4b36fab29838815f/02e66/app-screenshot.jpg&quot;
+        srcset=&quot;/static/d4ef3fdafd10b3ee4b36fab29838815f/e07e9/app-screenshot.jpg 200w,
+/static/d4ef3fdafd10b3ee4b36fab29838815f/066f9/app-screenshot.jpg 400w,
+/static/d4ef3fdafd10b3ee4b36fab29838815f/02e66/app-screenshot.jpg 405w&quot;
+        sizes=&quot;(max-width: 405px) 100vw, 405px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;This app only took about 2 days for me to create from scratch. I’ll try to make the UI more appealling. Get some &lt;a href=&quot;https://material-ui.com/&quot;&gt;material design&lt;/a&gt; components, make the timer look like an actual timer instead of just text. Maybe display some ads and earn some money (why not!!).&lt;/p&gt;</content:encoded></item></channel></rss>
